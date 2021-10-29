@@ -1,0 +1,18 @@
+{
+  "name": "@corethrill/precompiler",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/plugin-transform-react-jsx": "^7.14.5",
+    "esprima": "^4.0.1"
+  }
+}

@@ -1,0 +1,23 @@
+{
+	"name": "@corethrill/forms",
+	"type": "module",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@corethrill/core": "file:../core",
+		"vanillajs-datepicker": "^1.1.4"
+	},
+	"corethrill": {
+		"compilerExtension": "@compile.js"
+	},
+	"devDependencies": {
+		"parse-es6-imports": "^1.0.1"
+	}
+}
