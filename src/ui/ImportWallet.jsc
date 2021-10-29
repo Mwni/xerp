@@ -1,0 +1,101 @@
+import { Form, Model, Status, MaxLengthIndicator } from '@corethrill/forms'
+import { isBase58 } from '../utils/rippled.js'
+import Return from './Return.jsc'
+import ActivityIndicator from './ActivityIndicator.jsc'
+
+export default node => {
+	let state = node.ctx.pstate('new-wallet')
+	let wallet = new Model(null, {
+		seed: {
+			maxLength: 31,
+			input: async str => {
+				if(str && !isBase58(str))
+					throw 'This can not be a valid seed'
+
+				if(str.length === 31){
+					try{
+						await node.ctx.deriveAddress(str)
+					}catch{
+						throw 'This seed is not valid'
+					}
+				}
+			}
+		}
+	})
+
+	state.wallet = {}
+	wallet.on('input', () => {
+		state.wallet = wallet.data()
+
+		if(wallet.seed.length === 31){
+			node.ctx.deriveAddress(wallet.seed)
+				.then(address => state.wallet.address = address)
+				.then(node.ctx.redraw)
+		}else{
+			state.wallet.address = undefined
+		}
+	})
+	wallet.assign(state.wallet)
+
+
+	return {
+		oncreate: node => {
+			node.dom.querySelector('textarea').focus()
+		},
+		view: node => (
+			<>
+				<section class="import-wallet">
+					<Return href="/new" label="Create new wallet"/>
+					<h4>Enter the wallet seed to proceed</h4>
+					<span>Your wallet seed will then be encrypted with a passcode of your choice and placed in your browser's storage.</span>
+					<Form class="styled" model={wallet}>
+						<textarea field="seed" class="$status"/>
+						<div class="meta">
+							<Status field="seed"/>
+							<MaxLengthIndicator field="seed"/>
+						</div>
+					</Form>
+					{#if state.wallet.address}
+						<DerivedAccount address={state.wallet.address}/>
+					{/if}
+				</section>
+				<div class="foot">
+					<button 
+						class="styled primary" 
+						disabled={!state.wallet.address} 
+						onclick={() => node.ctx.goto('/new/passcode')}
+					>
+						<span>Continue</span>
+					</button>
+				</div>
+			</>
+		)
+	}
+}
+
+
+const DerivedAccount = node => {
+	let { address } = node.attrs
+	let balance = null
+
+	return {
+		oninit: async node => {
+			balance = parseInt(await node.ctx.getXrpBalance(address))
+		},
+		view: node => (
+			<div class="account">
+				<i class="user"/>
+				<span>{address}</span>
+				<div>
+					{#if balance === null}
+						<ActivityIndicator size={20}/>
+					{:elif balance > 0}
+						<span>{balance} XRP</span>
+					{:else}
+						<span>empty</span>
+					{/if}
+				</div>
+			</div>
+		)
+	}
+}

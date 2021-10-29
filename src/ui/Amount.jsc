@@ -1,0 +1,47 @@
+import Decimal from '../utils/decimal.js'
+
+export default {
+	view: node => {
+		let { plain, value, currency, ...attrs } = node.attrs
+
+		value = new Decimal(value)
+
+		if(value.greaterThanOrEqualTo(1)){
+			value = value.toDecimalPlaces(2)
+		}else if(value.greaterThan(0)){
+			value = value.toDecimalPlaces(-Math.floor(value.log()) + 2)
+		}
+
+		let valueString = value.toString()
+		let [integer, decimal] = valueString.split('.')
+		let formattedInteger = parseInt(integer).toLocaleString('en-US')
+		let formattedValue = formattedInteger
+
+		if(decimal){
+			formattedValue += `.${decimal}`
+		}
+
+		if(plain){
+			return (
+				<span class={`amount plain denominated-in-${currency.currency}`}>
+					{formattedValue} {currency.currency}
+				</span>
+			)
+		}else{
+			return (
+				<span class={`amount pretty denominated-in-${currency.currency}`}>
+					{#if currency.currency === 'XRP'}
+						<i class="xrp"/>
+					{:else if currency.currency === 'USD'}
+						<span class="currency">$</span>
+					{:else if currency.currency === 'EUR'}
+						<span class="currency">€</span>
+					{/if}
+					<span class="value">{formattedValue}</span>
+				</span>
+			)
+		}
+
+		
+	}
+}

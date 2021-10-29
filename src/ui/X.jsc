@@ -1,0 +1,13 @@
+import Contours from './Contours.jsc'
+
+export default node => {
+
+	return {
+		view: node => (
+			<div class="x">
+				<div class="cutout"/>
+				<Contours mode="splash" width={200} height={156}/>
+			</div>
+		)
+	}
+}

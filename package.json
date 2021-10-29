@@ -1,0 +1,23 @@
+{
+  "name": "@xerp/addon",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@corethrill/core": "file:../../libs/@corethrill/core",
+    "@corethrill/forms": "file:../../libs/@corethrill/forms",
+    "gsap": "^3.8.0"
+  },
+  "devDependencies": {
+    "@corethrill/precompiler": "file:../../libs/@corethrill/precompiler",
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6"
+  }
+}

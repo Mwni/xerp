@@ -1,0 +1,219 @@
+html, body{
+	padding: 0;
+	background-color: #f5f5f7;
+}
+
+body{
+	box-sizing: border-box;
+	padding: 20px;
+	width: 300px;
+	height: 460px;
+}
+
+a.return{
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+	gap: 5px;
+}
+
+a.return i{
+	width: 20px;
+	height: 20px;
+}
+
+
+
+
+body > section > h4{
+	margin: 0 0 5px 0
+}
+
+body > section > span{
+	display: block;
+	font-size: 14px;
+}
+
+
+body > section > form{
+	margin: 20px 0;
+}
+
+.foot{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #f5f5f7;
+	padding: 20px;
+}
+
+.foot > button{
+	width: 100%;
+}
+
+.account{
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+.account i{
+	width: 32px;
+	height: 32px;
+	flex-shrink: 0;
+}
+
+
+.currency i.xrp{
+	background-image: url(/img/xrp.svg);
+}
+
+.currency i.placeholder{
+	background-image: url(/img/currency-placeholder.svg);
+}
+
+
+
+
+
+.unlock{
+	text-align: center;
+}
+
+.unlock input{
+	text-align: center;
+}
+
+section.wallet .account{
+	margin-bottom: 20px;
+}
+
+
+section.wallet ul.currencies{
+	list-style: none;
+	padding: 0;
+	font-size: 13px;
+}
+
+section.wallet ul.currencies li{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px 0;
+}
+
+section.wallet ul.currencies li .currency{
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+section.wallet ul.currencies li .currency > i{
+	width: 24px;
+	height: 24px;
+}
+
+section.wallet ul.currencies li .currency span{
+	display: block;
+}
+
+section.wallet ul.currencies li .currency span.name{
+	font-weight: bold;
+}
+
+section.wallet ul.currencies li .currency span.issuer{
+	font-size: 13px;
+}
+
+
+
+
+
+section.import-wallet textarea{
+	font-family: monospace;
+	font-size: 18px;
+}
+
+section.import-wallet .meta{
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-between;
+}
+
+section.import-wallet .meta .max{
+	margin-left: auto;
+}
+
+section.import-wallet .account{
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+section.import-wallet .account i{
+	width: 32px;
+	height: 32px;
+	flex-shrink: 0;
+}
+
+section.import-wallet .account > span{
+	font-size: 13px;
+	display: block;
+	word-break: break-all;
+}
+
+section.import-wallet .account > div{
+	width: 160px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+
+section.unlock input,
+section.set-passcode input,
+section.confirm-passcode input{
+	font-family: monospace;
+	font-size: 18px;
+	letter-spacing: 0.1em;
+}
+
+section.confirm-passcode > input{
+	background-color: transparent;
+	border: none;
+	outline: none;
+	margin: 20px 0;
+}
+
+
+.infobox{
+	margin: 10px 0;
+	border-radius: 3px;
+	border: solid 1px black;
+	padding: 5px 5px 5px 28px;
+	font-size: 13px;
+	background-repeat: no-repeat;
+	background-position: 8px 8px;
+	background-size: 13px;
+}
+
+
+.infobox > span{
+	display: block;
+	font-weight: 600;
+}
+
+.infobox ul{
+	padding: 0;
+	margin: 3px 0 0 0;
+}
+
+.infobox.warning{
+	border-color: #AEB200;
+	background-image: url(/img/warning.svg);
+}
+
+.infobox.note{
+	border-color: #2DCF78;
+	background-image: url(/img/checked.svg);
+}

@@ -1,0 +1,17 @@
+.x{
+	width: 200px;
+	position: relative;
+	margin: 30px auto 50px auto;
+}
+
+.x .cutout{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 100% 100%;
+	background-image: url(/img/x-cutout.svg);
+}

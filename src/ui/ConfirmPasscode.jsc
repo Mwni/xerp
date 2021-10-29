@@ -1,0 +1,73 @@
+import Return from './Return.jsc'
+import { Form, Model, Status } from '@corethrill/forms'
+
+
+export default node => {
+	let state = node.ctx.pstate('new-wallet')
+	let showPasscode = false
+	let retype = false
+	let repeat = new Model(null, {
+		passcode: {
+			input: str => {
+				if(str !== state.passcode)
+					throw 'not identical'
+			}
+		}
+	})
+
+	function askReallyComplete(){
+		//later
+		complete()
+	}
+
+	function complete(){
+		node.ctx.addWallet(state)
+		node.ctx.goto('/wallet/balances')
+	}
+
+
+	return {
+		view: node => (
+			<>
+				<section class="confirm-passcode">
+					<Return href="/new/passcode/" label="Change passcode"/>
+					<h4>Confirm your passcode</h4>
+					<span>To make sure you haven't mistyped your passcode, choose one of the ways below.</span>
+					{#if showPasscode}
+						<input type="text" value={state.passcode} readonly/>
+						<span>Review the passcode above, then click "Complete"</span>
+					{:elif retype}
+						<input type="password" value={state.passcode} readonly/>
+						<Form class="styled" model={repeat}>
+							<input type="password" field="passcode" class="$status"/>
+							<Status field="passcode"/>
+						</Form>
+						<span>Re-type the passcode in the field above, then click "Complete"</span>
+					{:else}
+						<input type="password" value={state.passcode} readonly/>
+						<div class="options">
+							<button class="styled ghost" onclick={() => showPasscode = true}>
+								<span>👉 Show passcode</span>
+							</button>
+							<button class="styled ghost" onclick={() => retype = true}>
+								<span>👉 Re-type passcode</span>
+							</button>
+						</div>
+					{/if}
+					
+				</section>
+				<div class="foot">
+					{#if showPasscode || (retype && repeat.passcode === state.passcode)}
+						<button class="styled primary" onclick={complete}>
+							<span>Complete</span>
+						</button>
+					{:else}
+						<button class="styled secondary" onclick={askReallyComplete}>
+							<span>Skip</span>
+						</button>
+					{/if}
+				</div>
+			</>
+		)
+	}
+}

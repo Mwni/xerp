@@ -1,0 +1,25 @@
+export default {
+	view: node => {
+		let { items, active, replace, ...attrs } = node.attrs
+		let cls = attrs.class || ''
+
+		return (
+			<nav class={`styled ${cls}`}>
+				<ul>
+					{#for let {key, label, href, onclick} of items}
+						<li class={key === node.attrs.active ? 'active' : ''}>
+							<a
+								class={`can-have-underline ${key === active ? 'has-underline primary' : ''}`}
+								href={href}
+								options={{replace}}
+								onclick={onclick}
+							>
+								{label}
+							</a>
+						</li>
+					{/for}
+				</ul>
+			</nav>
+		)
+	}
+}

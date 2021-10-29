@@ -1,0 +1,23 @@
+export default {
+	view: node => {
+		let { currency } = node.attrs
+		let name = currency.currency
+		let issuer = currency.issuer ? currency.issuer.slice(0, 8)+'...' : null
+
+		return (
+			<div class={`currency ${node.attrs.class || ''}`}>
+				{#if name === 'XRP'}
+					<i class="currency xrp"/>
+				{:else}
+					<i class="currency placeholder"/>
+				{/if}
+				<div>
+					<span class="name">{name}</span>
+					{#if node.attrs.showIssuer && issuer}
+						<span class="issuer">{issuer}</span>
+					{/if}
+				</div>
+			</div>
+		)
+	}
+}

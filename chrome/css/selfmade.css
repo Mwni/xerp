@@ -1,0 +1,160 @@
+/* minimalistic css framework */
+
+body, html{
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+	color: #111;
+	line-height: 1.5;
+	touch-action: manipulation;
+	overflow-x: hidden;
+	min-height: 100vh;
+	font-size: 16px;
+}
+
+
+a{
+	text-decoration: none;
+	cursor: pointer;
+}
+
+i{
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+}
+
+
+em{
+	font-weight: 600;
+}
+
+
+p a{
+	color: inherit;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+p a:hover{
+	color: #7919FF;
+}
+
+em{
+	font-style: normal;
+	font-weight: 600;
+}
+
+
+nav.styled ul{
+	list-style: none;
+	display: flex;
+	padding: 0;
+	margin: 0;
+	gap: 15px;
+}
+
+nav.styled ul a{
+	display: block;
+	color: inherit;
+}
+
+
+
+
+a.button.styled,
+button.styled{
+	display: block;
+	border: none;
+	outline: none;
+	border-radius: 9px;
+	padding: 12px 26px;
+	cursor: pointer;
+	font-size: 21px;
+	position: relative;
+	text-align: center;
+}
+
+a.button.styled:active,
+button.styled:active{
+	opacity: 0.6;
+}
+
+a.button.styled:active:after,
+button.styled:active:after{
+	content: '';
+	position: absolute;
+	top: -4px;
+	left: -4px;
+	right: -4px;
+	bottom: -4px;
+	border: solid 2px #333;
+	border-radius: 11px;
+}
+
+a.button.styled.primary,
+button.styled.primary{
+	background-color: dodgerblue;
+	color: white;
+}
+
+a.button.styled.ghost,
+button.styled.ghost{
+	background-color: transparent;
+	color: inherit;
+}
+
+
+a.button.styled.disabled,
+button.styled:disabled{
+	pointer-events: none;
+	cursor: default;
+	opacity: 0.4;
+}
+
+a.button.styled.primary:disabled,
+button.styled.primary:disabled{
+	background-color: #bbb;
+	color: #eee;
+}
+
+form.styled input[type="text"],
+form.styled input[type="password"],
+form.styled input[type="number"],
+form.styled textarea{
+	width: 100%;
+	box-sizing: border-box;
+	font-size: inherit;
+	border-radius: 8px;
+	padding: 8px;
+}
+
+
+
+form.styled textarea{
+	height: 60px;
+	resize: vertical;
+}
+
+form.styled input.issue,
+form.styled textarea.issue{
+	border-color: red;
+	outline-color: red;
+}
+
+form.styled span.issue{
+	font-size: 13px;
+	color: red;
+}
+
+
+
+.can-have-underline{
+	border-top: solid 3px transparent;
+	border-bottom: solid 3px transparent;
+}
+
+.can-have-underline.has-underline.primary{
+	border-bottom-color: #7919FF;
+}

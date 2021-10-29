@@ -1,0 +1,48 @@
+import Currency from './Currency.jsc'
+import Amount from './Amount.jsc'
+
+export default node => {
+	let account = node.ctx.account
+
+	return {
+		oninit: node => node.ctx.requireBalances(),
+		view: node => (
+			<>
+				{#if account.balances}
+					<ul class="currencies">
+						{#for let group of node.ctx.getGroupedBalances()}
+							<GroupedBalanceEntry balances={group}/>
+						{/for}
+					</ul>
+				{:else}
+					<ul class="currencies">
+						{#for let i = 0; i < 3; i++}
+							<GroupedBalanceEntry.Skeleton/>
+						{/for}
+					</ul>
+				{/if}
+			</>
+		)
+	}
+}
+
+const GroupedBalanceEntry = {
+	view: node => {
+		let { balances } = node.attrs
+		let balance = balances[0]
+
+
+		return (
+			<li>
+				<Currency currency={balance} showIssuer={true}/>
+				<Amount class="balance" plain={true} currency={balance} value={balance.value}/>
+			</li>
+		)
+	},
+
+	Skeleton: {
+		view: node => (
+			<div/>
+		)
+	}
+}

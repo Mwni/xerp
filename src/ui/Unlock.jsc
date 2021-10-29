@@ -1,0 +1,40 @@
+import X from './X.jsc'
+import { Form, Model, Status } from '@corethrill/forms'
+
+export default node => {
+	let pass = new Model(null, {
+		passcode: {
+			submit: str => {
+				if(!str)
+					throw 'required'
+			}
+		}
+	})
+
+	async function tryUnlock(){
+		if(await node.ctx.unlock(pass.passcode))
+			node.ctx.goto('/wallet/balances')
+	}
+
+
+	return {
+		oncreate: node => {
+			node.dom.querySelector('input').focus()
+		},
+		view: node => (
+			<Form class="styled" model={pass} action={tryUnlock}>
+				<section class="unlock">
+					<X/>
+					<h4>Enter your passcode</h4>
+					<input type="password" field="passcode" class={pass.status.issue ? 'issue' : ''}/>
+					<Status/>
+				</section>
+				<div class="foot">
+					<button type="submit" class="styled primary" disabled={!pass.passcode} >
+						<span>Unlock</span>
+					</button>
+				</div>
+			</Form>
+		)
+	}
+}

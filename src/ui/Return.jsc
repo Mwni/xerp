@@ -1,0 +1,8 @@
+export default {
+	view: node => (
+		<a class="return" href={node.attrs.href}>
+			<i class="arrow-left"/>
+			<span>{node.attrs.label}</span>
+		</a>
+	)
+}

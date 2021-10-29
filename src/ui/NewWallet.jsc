@@ -1,0 +1,20 @@
+import X from './X.jsc'
+
+export default node => {
+	let state = null
+
+
+	return {
+		view: node => (
+			<section class="new-wallet">
+				<X/>
+				<a href="/new/import" class="button styled ghost">
+					<span>Import existing Wallet</span>
+				</a>
+				<a href="/new/create" class="button styled ghost disabled">
+					<span>Create a new Wallet</span>
+				</a>
+			</section>
+		)
+	}
+}

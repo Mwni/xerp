@@ -1,0 +1,27 @@
+import Nav from './Nav.jsc'
+import Balances from './Balances.jsc'
+
+const sections = [
+	{label: 'Balances', href: '/wallet/balances', key: 'balances'},
+	{label: 'History', href: '/wallet/history', key: 'history'},
+]
+
+
+export default node => {
+	let account = node.ctx.account
+
+	return {
+		view: node => (
+			<section class="wallet">
+				<div class="account">
+					<i class="user"/>
+					<span>{account.address.slice(0, 6)}</span>
+				</div>
+				<Nav items={sections} active={node.attrs.section}/>
+				{#if node.attrs.section === 'balances'}
+					<Balances/>
+				{/if}
+			</section>
+		)
+	}
+}

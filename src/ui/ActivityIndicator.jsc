@@ -1,0 +1,67 @@
+export default node => {
+	let { size } = node.attrs
+	let canvas
+	let ctx
+	let w
+	let h
+	let rays = 8
+	let timeDivision = 150
+
+	async function setup(c){
+		canvas = c
+		canvas.width = w = size * window.devicePixelRatio
+		canvas.height = h = size * window.devicePixelRatio
+		canvas.style.width = size + 'px'
+		canvas.style.height = size + 'px'
+		ctx = canvas.getContext('2d')
+
+		render()
+	}
+
+	function rayAt(a, r){
+		return [
+			(0.5 + Math.sin(a) * r * 0.5) * w,
+			(0.5 - Math.cos(a) * r * 0.5) * h
+		]
+	}
+
+	function render(){
+		if(!document.body.contains(canvas)){
+			unload()
+			return
+		}
+
+		let now = performance.now() + timeDivision * rays
+		let t = now / timeDivision
+		
+
+		ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+		for(let i = 0; i < rays; i++){
+			let a = Math.PI * 2 / rays * i
+			let x = ((t - i) % rays) / rays
+			let o = 1 - Math.max(0, x)
+
+
+			ctx.beginPath()
+			ctx.strokeStyle = `rgba(77, 77, 77, ${o})`
+			ctx.lineCap = 'round'
+			ctx.lineWidth = w * 0.11
+			ctx.moveTo(...rayAt(a, 0.45))
+			ctx.lineTo(...rayAt(a, 0.9))
+			ctx.stroke()
+		}
+
+		requestAnimationFrame(render)
+	}
+
+	function unload(){
+		cancelAnimationFrame(render)
+	}
+
+	return {
+		oncreate: node => setup(node.dom),
+		onremove: node => unload(),
+		view: node => <canvas/>
+	}
+}

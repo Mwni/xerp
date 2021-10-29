@@ -1,0 +1,66 @@
+import Return from './Return.jsc'
+import { Form, Model } from '@corethrill/forms'
+import { laxHumanDuration } from '../utils/time.js'
+import { approximatePasswordCrackTime } from '../utils/security.js'
+
+
+export default node => {
+	let state = node.ctx.pstate('new-wallet')
+	let approxCrackTime = null
+	let deemedSafe = false
+	let pass = new Model(null, {
+		passcode: {
+			submit: str => {
+				if(!str)
+					throw 'required'
+			}
+		}
+	})
+
+	pass.assign({passcode: state.passcode})
+	pass.on('input', () => {
+		let time = approximatePasswordCrackTime(pass.passcode)
+
+		if(time > 0){
+			approxCrackTime = laxHumanDuration(time)
+			deemedSafe = time > 60 * 60 * 24 * 365 * 250
+		}else{
+			approxCrackTime = null
+			deemedSafe = false
+		}
+
+		state.passcode = pass.passcode
+	})
+
+	return {
+		oncreate: node => {
+			node.dom.querySelector('input').focus()
+		},
+		view: node => (
+			<>
+				<section class="set-passcode">
+					<Return href="/new/import" label="Change wallet seed"/>
+					<h4>Choose a passcode</h4>
+					<span>Your wallet seed will be encrypted using this passcode.</span>
+					<Form class="styled" model={pass}>
+						<input type="password" field="passcode" class="$status"/>
+						{#if approxCrackTime}
+							<div class={`infobox ${deemedSafe ? 'note' : 'warning'}`}>
+								<span>It would take {approxCrackTime} to crack this passcode</span>
+							</div>
+						{/if}
+					</Form>
+				</section>
+				<div class="foot">
+					<button 
+						class="styled primary" 
+						disabled={!pass.passcode} 
+						onclick={() => node.ctx.goto('/new/passcode/confirm')}
+					>
+						<span>Confirm</span>
+					</button>
+				</div>
+			</>
+		)
+	}
+}
