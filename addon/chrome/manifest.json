@@ -1,9 +1,10 @@
 {
 	"manifest_version": 3,
-	"name": "XERP",
-	"description": "A XRP Wallet in your Browser",
-	"version": "0.1",
+	"name": "XERP Wallet",
+	"description": "The XRPL Wallet for your Browser",
+	"version": "1.0.0",
 	"icons": {
+		"32": "img/icon32.png",
 		"128": "img/icon128.png"
 	},
 	"action": {
