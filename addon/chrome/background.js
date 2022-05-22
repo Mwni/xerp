@@ -200,17 +200,6 @@
 		}
 	}
 
-	/*
-	chrome.runtime.onInstalled.addListener(() => {
-		chrome.storage.local.set({xid: Math.round(Math.random() * 1000)})
-	})
-
-	chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
-		console.log("Received %o from %o, frame", msg, sender.tab, sender.frameId, sendResponse);
-		chrome.storage.local.get('xid', data => sendResponse(data))
-		return true
-	});*/
-
 	new Daemon();
 
 })();
