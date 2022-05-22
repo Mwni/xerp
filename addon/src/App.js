@@ -116,7 +116,7 @@ export default class{
 
 	async query(payload){
 		return await new Promise((resolve, reject) => {
-			chrome.extension.sendMessage(payload, response => {
+			chrome.runtime.sendMessage(payload, response => {
 				if(!response){
 					reject(new Error('Internal error'))
 					return
